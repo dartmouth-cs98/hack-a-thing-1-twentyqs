@@ -29,7 +29,7 @@ def getResponse(trait, isHe):
     while True:
         # Referenced https://realpython.com/python-speech-recognition/
         with mic as source:
-            recog.adjust_for_ambient_noise(source, duration=0.1)
+            # recog.adjust_for_ambient_noise(source, duration=0.1)
             audio = recog.listen(source)
 
         response = {

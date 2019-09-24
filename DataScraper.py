@@ -7,6 +7,8 @@
 from bs4 import BeautifulSoup
 import requests
 from Information import Information
+import pandas as pd
+import re
 
 
 # In[2]:
@@ -23,7 +25,7 @@ class DataScraper:
         print(self.base_url + featureURL)
         response = requests.get(self.base_url + featureURL)
         html = response.content
-        table = pd.read_html(html)
+        table = pd.read_html(html, header=0)
         return table[0]
     
     def formFeatureURL(self, positives, negatives):
@@ -47,6 +49,11 @@ class DataScraper:
         if positives[2]:
             for ability in positives[2]:
                 res += '&' + ability + '=80-99'
+
+        if positives[3]:
+            nationality = '&nationality='+positives[3][0]
+            nationality = re.sub(r' ', r'%20', nationality)
+            res += nationality
         
         if negatives[1]:
             if 'Tall' in negatives[1]:
