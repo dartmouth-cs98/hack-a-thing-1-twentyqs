@@ -2,6 +2,7 @@ import pandas as pd
 import random as rd
 from DataScraper import DataScraper
 from Information import Information
+from mic import *
 
 class Game:
     def __init__(self):
@@ -43,11 +44,14 @@ class Game:
                     
             keyword = rd.choice(self.choiceDict[dictChoice])
             self.choiceDict[dictChoice].remove(keyword)
-            
-            ###################
-            # Jerry's Module
-            ###################
-            answer = rd.choice([True, False])
+
+            if dictChoice == 0 and keyword not in self.positionMap:
+                trait = self.choiceDict[3][int(keyword)]
+            else:
+                trait = keyword
+
+            answer = getResponse(trait, dictChoice in [0, 1])
+
             print(keyword)
             print(answer)
             if answer:
